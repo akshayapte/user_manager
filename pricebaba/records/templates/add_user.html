@@ -78,7 +78,12 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
         <br>
-        <input class="btn btn-default btn-success" type='submit' value='Submit'>
+        {%if not request.get_full_path == "/add_user/?edit=0" %}
+        <input class="btn btn-default btn-success" type='submit' value='Update'>
+        {% else %}
+        <input class="btn btn-default btn-success" type='submit' value='Add'>
+        {% endif %}
+
         <a href="/" class="btn btn-danger">Cancel</a>
         </div>
       </div>
