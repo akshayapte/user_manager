@@ -1,0 +1,146 @@
+{% extends "base_user.html" %}
+
+{% block main_content%}
+
+        <div class="col-md-12">
+            <h1 class="page-header">Add/Edit User</h1>
+            
+        </div>
+
+        
+        {% if message %}
+      <div class="panel-body">
+          <div class="alert alert-success alert-dismissable col-lg-12">
+              <button onclick="window.location='.'" type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{message}}
+          </div>
+      </div>
+        {% elif message_error %}
+          <div class="panel-body">
+            <div class="alert alert-danger alert-dismissable col-lg-12">
+                <button onclick="window.location='.'" type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{message_error}}
+            </div>
+        </div>
+      {% endif %}
+     
+
+      <div class="panel panel-default">        
+        <div class="panel-body">
+        <form name="myForm" action="." method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <div class="col-lg-6">
+        {%if not request.get_full_path == "/add_user/?edit=0" %}
+        <label><strong>User ID</strong></label>
+        <br>
+        <input name="user_id" class="form-control" value="{{user.id}}" type = "text" readonly></input>
+        <br>
+        {%endif%}
+        <label><strong>First Name</strong></label>
+        <br>
+        <input name="first_name" class="form-control" value="{{user.first_name}}" type = "text"></input>
+        <br>
+        <label><strong>Last Name</strong></label>
+        <br>
+        <input name="last_name" class="form-control"  value="{{user.last_name}}" type = "text"></input>
+        <br>
+        <label><strong>Email Id</strong></label>
+        <br>
+        <input name="email" class="form-control" value="{{user.email}}"  type = "text"></input>
+        <br>
+        <label><strong>Mobile No.</strong></label>
+        <br>
+        <input name="mobile" class="form-control" value="{{user.mobile}}"
+        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+        type = "number"
+        maxlength = "10"
+        />
+        <br>
+        <label><strong>Age</strong></label>
+        <br>
+        <input name="age" class="form-control" value="{{user.age}}"
+        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+        type = "number"
+        maxlength = "3"
+        <br>
+        <label><strong>Date of Birth</strong></label>
+        <br>
+        <input name="date_of_birth" id="example1" class="form-control" value="{{user.date_of_birth}}"  type = "text"></input>
+        <br>
+        <label><strong>Location</strong></label>
+        <br>
+        <input name="location" class="form-control" value="{{user.location}}"  type = "text"></input>
+        
+        
+        
+                
+
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        <br>
+        <input class="btn btn-default btn-success" type='submit' value='Submit'>
+        <a href="/" class="btn btn-danger">Cancel</a>
+        </div>
+      </div>
+      </form> 
+    
+
+
+   
+    
+
+<script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#dataTables2').DataTable({
+                "iDisplayLength":5,
+                "oLanguage": {
+                  "sEmptyTable": "No Details Found"
+                }
+        });
+        
+    });
+    </script>
+    <script type="text/javascript">
+      function validateForm() {
+
+            var x = document.forms["myForm"]["first_name"].value;
+            if (x == "") {
+                alert("First name cannot be blank");
+                return false;
+            }
+            var x = document.forms["myForm"]["last_name"].value;
+            if (x == "") {
+                alert("Last Name cannot be blank");
+                return false;
+            }
+            var x = document.forms["myForm"]["age"].value;
+            if (x == "") {
+                alert("Age must be filled out");
+                return false;
+            }
+            var x = document.forms["myForm"]["mobile"].value;
+            if (x == "") {
+                alert("Mobile Number cannot be blank");
+                return false;
+            }
+            var x = document.forms["myForm"]["location"].value;
+            if (x == "") {
+                alert("Location cannot be blank");
+                return false;
+            }
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.email.value))
+            {
+              return (true)
+            }
+            else
+            {
+              alert("You have entered an invalid email address!")
+              return (false)
+            }
+          }
+    </script>
+    
+
+{% endblock %}
